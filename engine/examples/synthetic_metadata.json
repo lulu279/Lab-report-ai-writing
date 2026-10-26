@@ -1,0 +1,32 @@
+{
+  "dataset_type": "synthetic",
+  "dataset_label": "DEMO ONLY | Synthetic PE/PET scans",
+  "measurement_units": {
+    "time_s": "s",
+    "temperature_c": "degC",
+    "heat_flow_mw": "mW"
+  },
+  "baseline_fraction": 0.1,
+  "samples": [
+    {
+      "sample_id": "PE_demo",
+      "polymer": "PE",
+      "mass_mg": 5.0,
+      "endotherm_up": true,
+      "delta_h0_j_g": 293.0,
+      "delta_h0_reference": "User reference report; NOT independently verified",
+      "reference_verified": false,
+      "cold_crystallization_excluded": true
+    },
+    {
+      "sample_id": "PET_demo",
+      "polymer": "PET",
+      "mass_mg": 3.6,
+      "endotherm_up": true,
+      "delta_h0_j_g": 140.0,
+      "delta_h0_reference": "User reference report; NOT independently verified",
+      "reference_verified": false,
+      "cold_crystallization_excluded": true
+    }
+  ]
+}

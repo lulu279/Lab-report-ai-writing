@@ -1,0 +1,6 @@
+# Optional libraries for method development; none are needed for v0.3 formula tests.
+# Install only when implementing/validating a corresponding algorithm.
+scipy>=1.11,<2
+pybaselines>=1.1,<2
+lmfit>=1.3,<2
+pint>=0.25,<0.26

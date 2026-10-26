@@ -1,0 +1,98 @@
+{
+  "dataset_type": "synthetic",
+  "dataset_label": "DEMO ONLY | Synthetic PE/PET scans",
+  "measurement_units": {
+    "time_s": "s",
+    "temperature_c": "degC",
+    "heat_flow_mw": "mW"
+  },
+  "baseline_fraction": 0.1,
+  "samples": [
+    {
+      "sample_id": "PE_demo",
+      "polymer": "PE",
+      "mass_mg": 5.0,
+      "endotherm_up": true,
+      "delta_h0_j_g": 293.0,
+      "delta_h0_reference": "User reference report; NOT independently verified",
+      "reference_verified": false,
+      "cold_crystallization_excluded": true
+    },
+    {
+      "sample_id": "PET_demo",
+      "polymer": "PET",
+      "mass_mg": 3.6,
+      "endotherm_up": true,
+      "delta_h0_j_g": 140.0,
+      "delta_h0_reference": "User reference report; NOT independently verified",
+      "reference_verified": false,
+      "cold_crystallization_excluded": true
+    }
+  ],
+  "windows": [
+    {
+      "event_id": "PE_demo_H1_melting",
+      "sample_id": "PE_demo",
+      "segment": "H1",
+      "phase": "melting",
+      "start_c": 75.0,
+      "end_c": 129.0
+    },
+    {
+      "event_id": "PE_demo_C1_crystallization",
+      "sample_id": "PE_demo",
+      "segment": "C1",
+      "phase": "crystallization",
+      "start_c": 59.0,
+      "end_c": 113.0
+    },
+    {
+      "event_id": "PE_demo_H2_melting",
+      "sample_id": "PE_demo",
+      "segment": "H2",
+      "phase": "melting",
+      "start_c": 72.5,
+      "end_c": 135.5
+    },
+    {
+      "event_id": "PE_demo_C2_crystallization",
+      "sample_id": "PE_demo",
+      "segment": "C2",
+      "phase": "crystallization",
+      "start_c": 62.0,
+      "end_c": 116.0
+    },
+    {
+      "event_id": "PET_demo_H1_melting",
+      "sample_id": "PET_demo",
+      "segment": "H1",
+      "phase": "melting",
+      "start_c": 187.0,
+      "end_c": 265.0
+    },
+    {
+      "event_id": "PET_demo_C1_crystallization",
+      "sample_id": "PET_demo",
+      "segment": "C1",
+      "phase": "crystallization",
+      "start_c": 160.0,
+      "end_c": 232.0
+    },
+    {
+      "event_id": "PET_demo_H2_melting",
+      "sample_id": "PET_demo",
+      "segment": "H2",
+      "phase": "melting",
+      "start_c": 189.0,
+      "end_c": 265.0
+    },
+    {
+      "event_id": "PET_demo_C2_crystallization",
+      "sample_id": "PET_demo",
+      "segment": "C2",
+      "phase": "crystallization",
+      "start_c": 162.0,
+      "end_c": 234.0
+    }
+  ]
+}

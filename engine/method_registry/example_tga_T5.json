@@ -1,0 +1,15 @@
+{
+  "temperature_c": [
+    30,
+    100,
+    200,
+    300
+  ],
+  "remaining_mass_percent": [
+    100,
+    99,
+    95,
+    80
+  ],
+  "mass_loss_target_percent": 5
+}

@@ -1,0 +1,13 @@
+{
+  "project": "Research DSC Engine v0.3",
+  "release_date": "2026-10-26",
+  "basis": "previous locally available v0.2 (synthetic fixture only); no vendor raw DSC input",
+  "formula_cards": 13,
+  "tested_executor_count": 9,
+  "catalog_only_count": 4,
+  "offline_tests_passed": 29,
+  "streamlit_runtime_tested": false,
+  "real_ai_api_invoked": false,
+  "real_instrument_data_tested": false,
+  "third_party_source_code_vendorized": false
+}

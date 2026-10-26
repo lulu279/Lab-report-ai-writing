@@ -39,6 +39,7 @@
 05_Tools/                  报告 DOCX 生成器、DOCX 文本提取、污染检查、工具链
 06_Evaluation/             评分、基线审计、盲测计划、runs/
 07_Projects/               课程项目状态与提交清单（历史快照）
+engine/                    DSC 可执行引擎 v0.3（数据→图→DOCX + 公式注册库，详见 engine/README.md）
 99_Archive/                旧版/重复件归档索引（包外）
 PACKAGE_MANIFEST.md        包内/包外/事实源
 VERSION                    版本号
@@ -52,6 +53,22 @@ CHANGELOG.md               版本记录
 3. **选范例**：`04_Examples/README.md`；优先 `full/` 里的全文，只选 1 个最相关的。
 4. **用提示词**：`03_Templates/ONE_TURN_PROMPTS.md` A/B/C/C2。
 5. **交付前**：`07_Projects/高分子物理实验2026/SUBMISSION_CHECKLIST.md` + `05_Tools/check_contamination.sh`。
+
+## 可执行引擎（engine/）
+
+`00–07` 是规则与模板层；`engine/` 是能跑代码的那一层，v0.3 提供两条独立路径：
+
+- **DSC 报告流水线**：标准化 CSV + JSON/YAML 配置 → 数值校验 → 积分/峰温/焓变/结晶度 → PNG/SVG → 带数据哈希的 DOCX 草稿；数值 `FAIL` 时不出报告。
+- **科学公式注册库**：13 张公式卡（DSC/TGA/UV-Vis/FTIR/GPC/NMR），9 个通过基础数值测试的方法可受控执行，4 个仅登记。
+
+```bash
+cd engine
+python -m pip install -r requirements.txt
+python -m pytest -q
+python -m streamlit run app.py
+```
+
+边界同本包：**未接入真实仪器数据、未调用真实 AI API**；公式"可执行"不等于方法适用于你的样品。完整说明见 [`engine/README.md`](engine/README.md)。
 
 ## 三条写作规则 + 一条格式硬性（本版核心）
 

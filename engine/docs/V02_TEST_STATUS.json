@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "test_command": "python -m pytest -q",
+  "offline_tests_passed": 17,
+  "external_ai_calls_performed": 0,
+  "streamlit_runtime_verified": false,
+  "model_method_selection_accuracy_verified": false,
+  "core_notes": [
+    "OpenAI-compatible API interface only; users select and authenticate a model",
+    "AI suggestions are validated against an allowlisted algorithm registry",
+    "human approval required before local calculation",
+    "synthetic DSC input only: no actual experiment data available"
+  ]
+}

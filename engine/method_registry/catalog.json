@@ -1,0 +1,281 @@
+[
+  {
+    "id": "dsc_enthalpy_time_v1",
+    "title_zh": "DSC：时间轴积分计算比焓变",
+    "experiments": [
+      "DSC"
+    ],
+    "version": "1.0.0",
+    "status": "tested_executor",
+    "equation": "Δh[J/g]=∫(Φ−Φb)[mW] dt[s]/m[mg]",
+    "inputs": {
+      "time_s": "s, strictly increasing list",
+      "heat_flow_mw": "mW list",
+      "baseline_mw": "mW list, same length",
+      "sample_mass_mg": "mg >0"
+    },
+    "assumptions": [
+      "必须是已校准热流",
+      "基线及积分窗口由使用者核验",
+      "结果符号由吸热方向和仪器约定确定"
+    ],
+    "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.trapezoid.html",
+    "notes": ""
+  },
+  {
+    "id": "dsc_enthalpy_temperature_v1",
+    "title_zh": "DSC：恒速温度轴积分比焓变",
+    "experiments": [
+      "DSC"
+    ],
+    "version": "1.0.0",
+    "status": "tested_executor",
+    "equation": "Δh[J/g]=60/(|β|[K/min]m[mg]) ∫(Φ−Φb)[mW]|dT|[K]",
+    "inputs": {
+      "temperature_c": "degC, strictly monotonic list in acquisition order",
+      "heat_flow_mw": "mW list",
+      "baseline_mw": "mW list",
+      "scan_rate_k_min": "K/min >0 magnitude",
+      "sample_mass_mg": "mg >0"
+    },
+    "assumptions": [
+      "测试程序必须为恒定升/降温速率",
+      "热流基线和扫描方向明确",
+      "禁止跨保温段套用"
+    ],
+    "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.trapezoid.html",
+    "notes": ""
+  },
+  {
+    "id": "dsc_crystallinity_v1",
+    "title_zh": "DSC：扣除冷结晶的初始结晶度估算",
+    "experiments": [
+      "DSC"
+    ],
+    "version": "1.0.0",
+    "status": "tested_executor",
+    "equation": "Xc[%]=100*(ΔHm−ΔHcc)/[(1−w_f)*ΔH0]",
+    "inputs": {
+      "melting_enthalpy_j_g": "J/g >=0 positive magnitude",
+      "cold_crystallization_enthalpy_j_g": "J/g >=0 positive magnitude, zero if confirmed absent",
+      "reference_enthalpy_j_g": "J/g >0, externally verified",
+      "filler_mass_fraction": "dimensionless 0<=w_f<1"
+    },
+    "assumptions": [
+      "参考熔融焓适用于聚合物体系且有文献",
+      "ΔHm ΔHcc 要来自同一讨论口径及合适的温度过程",
+      "w_f 表示非聚合物填料质量占比",
+      "多组分体系可能需要修正"
+    ],
+    "reference": "https://analyzing-testing.netzsch.com/en/know-how/glossary/crystallinity-degree-of-crystallinity",
+    "notes": "公式为常见 DSC 估算关系；对结晶完善程度、热容差异与参考焓温度条件有局限，不能直接视为室温绝对结晶度。所用参考焓必须对聚合物体系独立核验。"
+  },
+  {
+    "id": "tga_mass_loss_v1",
+    "title_zh": "TGA：质量损失百分率",
+    "experiments": [
+      "TGA"
+    ],
+    "version": "1.0.0",
+    "status": "tested_executor",
+    "equation": "Loss[%]=100*(m0−mf)/m0",
+    "inputs": {
+      "initial_mass_mg": "mg >0",
+      "final_mass_mg": "mg >=0"
+    },
+    "assumptions": [
+      "基准质量 m0 的定义必须清楚",
+      "该方法不处理质量增加"
+    ],
+    "reference": "通用质量定义",
+    "notes": ""
+  },
+  {
+    "id": "tga_t_at_loss_v1",
+    "title_zh": "TGA：指定失重百分率温度（T5 / T10）",
+    "experiments": [
+      "TGA"
+    ],
+    "version": "1.0.0",
+    "status": "tested_executor",
+    "equation": "T_loss = first linearly interpolated T where retained_mass[%]<=100−loss_target[%]",
+    "inputs": {
+      "temperature_c": "degC strictly increasing list",
+      "remaining_mass_percent": "% of initial, normalized list",
+      "mass_loss_target_percent": "% in (0,100)"
+    },
+    "assumptions": [
+      "质量必须相对同一初始基准归一化",
+      "采用首个阈值交点",
+      "数据噪声/多步分解需人工核验"
+    ],
+    "reference": "https://github.com/mpecchi/tga_data_analysis",
+    "notes": ""
+  },
+  {
+    "id": "uv_beer_lambert_v1",
+    "title_zh": "UV-Vis：Beer–Lambert 定律求浓度",
+    "experiments": [
+      "UV-VIS"
+    ],
+    "version": "1.0.0",
+    "status": "tested_executor",
+    "equation": "c[mol/L]=A/[ε[L mol^-1 cm^-1]*l[cm]]",
+    "inputs": {
+      "absorbance": "dimensionless >=0",
+      "epsilon_l_mol_cm": "L mol^-1 cm^-1 >0",
+      "path_length_cm": "cm >0"
+    },
+    "assumptions": [
+      "已正确扣空白",
+      "吸收遵循指定波长范围内线性关系",
+      "不存在显著散射/化学平衡偏差"
+    ],
+    "reference": "Beer–Lambert law; textbooks",
+    "notes": ""
+  },
+  {
+    "id": "ftir_transmittance_v1",
+    "title_zh": "FTIR：透过率转吸光度",
+    "experiments": [
+      "FTIR"
+    ],
+    "version": "1.0.0",
+    "status": "tested_executor",
+    "equation": "A=-log10(T_fraction)",
+    "inputs": {
+      "transmittance_fraction": "fraction (0,1]"
+    },
+    "assumptions": [
+      "输入为小数透过率而不是百分数",
+      "已处理参考/背景及基线"
+    ],
+    "reference": "Beer–Lambert law; spectrometry textbooks",
+    "notes": ""
+  },
+  {
+    "id": "gpc_mass_moments_v1",
+    "title_zh": "GPC：基于质量分数的 Mn、Mw、Đ",
+    "experiments": [
+      "GPC"
+    ],
+    "version": "1.0.0",
+    "status": "tested_executor",
+    "equation": "Mn=1/Σ(wi/Mi); Mw=Σwi*Mi; Đ=Mw/Mn",
+    "inputs": {
+      "molar_mass_g_mol": "positive molar masses g/mol list",
+      "mass_fraction": "nonnegative mass fractions list sum 1"
+    },
+    "assumptions": [
+      "w_i 已经是分子量区间对应的真实质量分数",
+      "不能直接使用未经校正的色谱面积",
+      "至少两组且质量分数之和为1"
+    ],
+    "reference": "Polymer molecular-weight-distribution moment definitions",
+    "notes": ""
+  },
+  {
+    "id": "nmr_integral_ratio_v1",
+    "title_zh": "1H NMR：氢数归一化积分得到组分比",
+    "experiments": [
+      "NMR"
+    ],
+    "version": "1.0.0",
+    "status": "tested_executor",
+    "equation": "n_A/n_B=(I_A/H_A)/(I_B/H_B)",
+    "inputs": {
+      "integral_a": "nonnegative numeric",
+      "integral_b": "positive numeric",
+      "protons_a": "positive numeric",
+      "protons_b": "positive numeric"
+    },
+    "assumptions": [
+      "峰归属可靠且不重叠",
+      "采集与弛豫条件允许合理积分",
+      "不是所有 1H NMR 数据都满足定量 NMR 条件"
+    ],
+    "reference": "Standard proton integration stoichiometry",
+    "notes": ""
+  },
+  {
+    "id": "dsc_tg_midpoint_v1",
+    "title_zh": "DSC：玻璃化转变中点",
+    "experiments": [
+      "DSC"
+    ],
+    "version": "1.0.0",
+    "status": "catalog_only",
+    "equation": "Tg = midpoint of heat-capacity step after validated baseline extrapolations",
+    "inputs": {
+      "temperature_c": "degC series",
+      "heat_flow_mw": "mW series"
+    },
+    "assumptions": [
+      "需先选择玻璃化区间和阶跃两端基线",
+      "复杂重叠情况须人工判断"
+    ],
+    "reference": "DSC thermal-transition analysis methodology",
+    "notes": "原 DSC v0.2 中也未实现，不允许执行"
+  },
+  {
+    "id": "dsc_peak_deconvolution_v1",
+    "title_zh": "DSC：重叠峰分解",
+    "experiments": [
+      "DSC"
+    ],
+    "version": "1.0.0",
+    "status": "catalog_only",
+    "equation": "fit sum of physically justified peak functions",
+    "inputs": {
+      "temperature_c": "degC series",
+      "heat_flow_mw": "mW series"
+    },
+    "assumptions": [
+      "模型选择需要物理依据",
+      "拟合参数可能不唯一"
+    ],
+    "reference": "https://lmfit.github.io/lmfit-py/",
+    "notes": ""
+  },
+  {
+    "id": "ftir_als_baseline_v1",
+    "title_zh": "FTIR：AsLS 基线校正",
+    "experiments": [
+      "FTIR",
+      "RAMAN"
+    ],
+    "version": "1.0.0",
+    "status": "catalog_only",
+    "equation": "Asymmetric least-squares baseline estimation",
+    "inputs": {
+      "wavenumber_cm_1": "1/cm list",
+      "signal": "absorbance or intensity list"
+    },
+    "assumptions": [
+      "需验证信号轴方向、光谱类型与算法超参数",
+      "基线不应消除真实峰"
+    ],
+    "reference": "https://pybaselines.readthedocs.io/",
+    "notes": ""
+  },
+  {
+    "id": "tga_dtg_peak_v1",
+    "title_zh": "TGA：DTG 峰值与峰分离",
+    "experiments": [
+      "TGA"
+    ],
+    "version": "1.0.0",
+    "status": "catalog_only",
+    "equation": "peak temperature from -d(mass%)/dT",
+    "inputs": {
+      "temperature_c": "degC list",
+      "remaining_mass_percent": "% list"
+    },
+    "assumptions": [
+      "需要平滑参数与噪声评估",
+      "导数峰温不同于起始分解温度"
+    ],
+    "reference": "https://github.com/jwbullard/TG-Analysis",
+    "notes": ""
+  }
+]

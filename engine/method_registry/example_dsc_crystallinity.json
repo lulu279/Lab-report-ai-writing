@@ -1,0 +1,6 @@
+{
+  "melting_enthalpy_j_g": 40.0,
+  "cold_crystallization_enthalpy_j_g": 5.0,
+  "reference_enthalpy_j_g": 100.0,
+  "filler_mass_fraction": 0.0
+}
