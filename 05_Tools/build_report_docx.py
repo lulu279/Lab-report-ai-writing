@@ -57,6 +57,8 @@ Body syntax (subset)
     <!-- pagebreak -->          -> page break
 
 Images: PNG or JPEG. They are scaled to <= 15 cm wide and <= 20 cm tall.
+Tables: all pipe tables are rendered as standard three-line tables (top/bottom
+1.5 pt, header rule 0.75 pt, no vertical/inside borders). --audit checks this.
 Formulas are rendered as centered italic text, not native Word equations.
 """
 from __future__ import annotations
@@ -754,6 +756,26 @@ def audit(path: str, strict: bool = True) -> int:
     paras = doc.count("<w:p>")
     theme = doc.count("themeFont") + z.read("word/styles.xml").decode("utf-8").count("themeFont")
     print(f"  media={len(media)} tables={tables} drawings={drawings} paragraphs={paras} themeFont={theme}")
+    table_blocks = re.findall(r"<w:tbl>.*?</w:tbl>", doc, re.S)
+    bad_tables = 0
+    for idx, tbl in enumerate(table_blocks, 1):
+        borders = re.search(r"<w:tblBorders>.*?</w:tblBorders>", tbl, re.S)
+        b = borders.group(0) if borders else ""
+        standard = all(x in b for x in (
+            'w:top w:val="single" w:sz="12"',
+            'w:bottom w:val="single" w:sz="12"',
+            'w:left w:val="none"',
+            'w:right w:val="none"',
+            'w:insideH w:val="none"',
+            'w:insideV w:val="none"',
+        )) and ('<w:tcBorders><w:bottom w:val="single" w:sz="6"' in tbl)
+        if not standard:
+            print(f"  FAIL: table {idx} is not a standard three-line table")
+            bad_tables += 1
+    if table_blocks:
+        print(f"  three_line_tables={len(table_blocks) - bad_tables}/{len(table_blocks)}")
+    if bad_tables:
+        xml_bad += bad_tables
     m = re.search(r'<w:pgMar w:top="(\d+)" w:right="(\d+)" w:bottom="(\d+)" w:left="(\d+)"', doc)
     if m:
         print(f"  margins twips top/right/bottom/left={m.group(1)}/{m.group(2)}/{m.group(3)}/{m.group(4)}")

@@ -1,6 +1,6 @@
 # 工具链（TOOLCHAIN）
 
-版本：1.1（2026-10-26）
+版本：1.2（2026-10-26）
 适用：本工作系统的实验数据处理、绘图、DOCX/XLSX/Origin 生成与校验。
 原则：只用已确认可用的工具；不假设 Linux 包管理器；不把“代码无报错”当作“文件已验证”。
 
@@ -53,7 +53,7 @@
 python3 05_Tools/build_report_docx.py report.md --out report.docx
 python3 05_Tools/build_report_docx.py report.md --out report_draft.docx --draft
 
-# 3) 结构审计
+# 3) 结构审计（含每张表的三线表边框检查）
 python3 05_Tools/build_report_docx.py --audit report.docx
 
 # 4) 旧范例数值污染检查
@@ -66,7 +66,7 @@ python3 05_Tools/pdf_text.py 00_START/COURSE_HANDOUT_2026.pdf --pages 1-10
 ```
 
 - `build_report_docx.py` 的语法与 front matter 说明见文件头。
-- 它设置：A4、2.20/2.15/2.00/2.35 cm、宋体+Times、正文 10.5 pt/1.5 倍/首行缩进 2 字符、一级/二级标题 12 pt、图注/表注 9 pt、三线表、页码、页眉。
+- 它设置：A4、2.20/2.15/2.00/2.35 cm、宋体+Times、正文 10.5 pt/1.5 倍/首行缩进 2 字符、一级/二级标题 12 pt、图注/表注 9 pt、标准三线表（顶/底 1.5 pt、表头线 0.75 pt、无竖线/内横线）、页码、页眉。
 - 不支持：原生 Word 公式（OMML）、自动图/表编号、目录。公式以居中斜体文本呈现；编号需在 Markdown 中手写。
 - `build_delivery_docx.py` **只**用于生成 `00_交付文档.docx`，不是报告生成器；不要拿它当报告模板。
 

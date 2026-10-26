@@ -1,5 +1,25 @@
 # 变更记录（CHANGELOG）
 
+## 1.3 — 2026-10-26
+
+### 新增/强化
+
+- **标准三线表硬性规则**：所有数据表（条件表、结果表、峰归属表、汇总表）一律使用标准三线表——顶/底 1.5 pt、表头线 0.75 pt、无竖线/左右边框/其他内横线；表头加粗、单位在表头；禁止 Excel 默认网格、全框表、竖线表、斑马纹。
+- 规则已写入：`README`、`00_START/START_HERE`、`01_Governance/FORMAT_PROFILE`、`01_Governance/STYLE_PROFILE`、`02_Workflows/FIRST_DRAFT`、`02_Workflows/REVISION_WORKFLOW`、`02_Workflows/EXPERIMENT_REPORT`、`02_Workflows/DATA_FIGURE_DELIVERY`、`03_Templates/ONE_TURN_PROMPTS`、`06_Evaluation/SCORECARD`、`07_Projects/.../SUBMISSION_CHECKLIST`、`PACKAGE_MANIFEST`。
+- `build_report_docx.py --audit` 新增三线表边框检查：每张表必须是 top/bottom 1.5 pt、header 0.75 pt、left/right/insideH/insideV none；否则 FAIL。
+- `KNOWN_ISSUES` 新增 A8“表格不是标准三线表”。
+- 版本号、README、交付文档、包清单同步到 1.3；`00_交付文档.docx` 重新生成。
+
+### 已验证
+
+- 示例 DOCX 的 1 张表通过三线表审计；`--audit` 输出 `three_line_tables=1/1`。
+- 生成器仍通过封面/占位符/媒体/表格/主题字体检查。
+
+### 未验证/边界
+
+- 未在 Word/WPS 中逐页渲染；表格的视觉线宽需在 Word/WPS 目检。
+- 未修改原稿与 v1.2；本版是独立副本。
+
 ## 1.2 — 2026-10-26
 
 ### 新增（冷启动与交付）

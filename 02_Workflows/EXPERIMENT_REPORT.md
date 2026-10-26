@@ -1,6 +1,6 @@
 # 工作流：实验报告（EXPERIMENT_REPORT）
 
-版本：1.1（2026-10-26）
+版本：1.2（2026-10-26）
 适用：高分子物理实验及同类理工科实验报告。
 默认输出：DOCX 报告 + PDF 预览（由 Word/WPS 从最终 DOCX 导出）+ XLSX 数据与图表 +（如要求）Origin 工程/脚本 + 图片源文件 + 交付说明。
 本版新增：冷启动输入包（`00_START/INPUT_PACK.md`）、封面字段（`00_START/COVER_FIELDS.md`）、首次起草（`FIRST_DRAFT.md`）、报告生成器（`build_report_docx.py`）、旧数值污染检查（`check_contamination.sh`）。
@@ -173,9 +173,9 @@ python3 05_Tools/build_report_docx.py report.md --out report.docx --margins temp
 python3 05_Tools/build_report_docx.py report.md --out report_draft.docx --draft
 ```
 
-- 模板：`03_Templates/COURSE_TEMPLATE.docx` 用于对照/手工套用；生成器默认按 `FORMAT_PROFILE` 默认版式（A4/宋体+Times/10.5 pt/1.5 倍/三线表/图注 9 pt），**不注入**模板的封面图/占位符。若课程强制按官方模板，生成后在 Word/WPS 套模板，或用 `--margins template` 匹配 2.54 cm 边距。
+- 模板：`03_Templates/COURSE_TEMPLATE.docx` 用于对照/手工套用；生成器默认按 `FORMAT_PROFILE` 默认版式（A4/宋体+Times/10.5 pt/1.5 倍/标准三线表/图注 9 pt），**不注入**模板的封面图/占位符。若课程强制按官方模板，生成后在 Word/WPS 套模板，或用 `--margins template` 匹配 2.54 cm 边距。
 - 字体三层设置；标题/正文/题注/表格/页眉页脚全部显式。
-- 图片嵌入而非链接；表格三线表；跨页表重复表头。
+- 图片嵌入而非链接；所有表格标准三线表（顶/底 1.5 pt、表头线 0.75 pt、无竖线/内横线）；跨页表重复表头。
 - 图注与图同页；标题与下段同页；避免孤行。
 - 生成后先做结构审计；再在 Word/WPS 打开、导出 PDF。**未导出就写“未渲染/未验证”，不要声称 PDF 已验收。**
 
@@ -194,7 +194,7 @@ sh 05_Tools/check_contamination.sh report.docx
 - 页码、页眉；
 - 标题编号连续；
 - 图/表编号与引用；
-- 三线表、单位、表头重复；
+- 标准三线表、单位、表头重复；
 - 公式编号、上下标；
 - 参考文献真实、格式统一；
 - 图片清晰、无变形、比例尺；
